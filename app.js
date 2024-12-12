@@ -24,7 +24,13 @@ const upload = multer({ storage });
 
 // Products Data
 const productsFile = "./products.json";
-const getProducts = () => JSON.parse(fs.readFileSync(productsFile, "utf-8"));
+const getProducts = () => {
+  try {
+    return JSON.parse(fs.readFileSync(productsFile, "utf-8"));
+  } catch (err) {
+    return []; // If there's an error reading the file, return an empty array
+  }
+};
 
 // Add Product API
 app.post("/add-product", upload.single("productImage"), (req, res) => {
@@ -34,7 +40,7 @@ app.post("/add-product", upload.single("productImage"), (req, res) => {
     name: productName,
     description: productDescription,
     price: parseFloat(productPrice),
-    image: req.file.filename,
+    image: req.file ? req.file.filename : null,
   };
 
   const products = getProducts();
