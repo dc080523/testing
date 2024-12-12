@@ -18,8 +18,7 @@ document.querySelector("#login-form")?.addEventListener("submit", async (e) => {
       document.getElementById("login-error").style.display = "block";
     } else {
       // Redirect to the add product page if login is successful
-      document.getElementById("login-container").style.display = "none";
-      document.getElementById("add-product-container").style.display = "block";
+      window.location.href = "/add-product";
     }
   } catch (error) {
     console.error("Login failed:", error);
@@ -64,20 +63,6 @@ document.querySelector("#add-product-form")?.addEventListener("submit", async (e
   }
 });
 
-// Image preview before uploading
-document.querySelector("#productImage")?.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  
-  reader.onload = function(event) {
-    const imagePreview = document.getElementById("image-preview");
-    imagePreview.src = event.target.result;
-    imagePreview.style.display = "block";  
-  };
-  
-  reader.readAsDataURL(file);
-});
-
 // Load the products on the page
 async function loadProducts() {
   try {
@@ -109,5 +94,5 @@ async function loadProducts() {
   }
 }
 
-// Call this function to load products initially
+// Load products when page loads
 loadProducts();
