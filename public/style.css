@@ -1,15 +1,52 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f8f8f8;
-  color: #333;
 }
 
-form label {
-  display: block;
-  margin-top: 10px;
+h1 {
+  text-align: center;
 }
 
-input, button {
-  margin: 5px 0;
+#product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+#product-list div {
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+form input, form textarea, form button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+form button {
+  cursor: pointer;
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+img {
+  max-width: 100%;
 }
