@@ -18,7 +18,8 @@ document.querySelector("#login-form")?.addEventListener("submit", async (e) => {
       document.getElementById("login-error").style.display = "block";
     } else {
       // Redirect to the add product page if login is successful
-      window.location.href = "/add-product";
+      document.getElementById("login-container").style.display = "none";
+      document.getElementById("add-product-container").style.display = "block";
     }
   } catch (error) {
     console.error("Login failed:", error);
@@ -108,18 +109,5 @@ async function loadProducts() {
   }
 }
 
-// Check if the admin is logged in (if logged out, redirect to login page)
-async function checkAdminStatus() {
-  try {
-    const response = await fetch("/check-admin-status", { method: "GET" });
-    if (response.status === 401) {
-      window.location.href = "/login";
-    }
-  } catch (error) {
-    console.error("Error checking admin status:", error);
-    window.location.href = "/login";
-  }
-}
-
-// Call this function to check if the admin is logged in when accessing protected routes
-checkAdminStatus();
+// Call this function to load products initially
+loadProducts();
