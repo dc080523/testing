@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "1",
+    "name": "Product 1",
+    "description": "Description of product 1",
+    "price": 100.0,
+    "image": "product1.jpg"
+  }
+]
