@@ -2,10 +2,11 @@
 document.querySelector("#add-product-form")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // Disable the submit button and show loading state
   const formData = new FormData(e.target);
   const submitButton = e.target.querySelector("button[type='submit']");
   const loadingText = document.createElement("span");
-  loadingText.textContent = "Adding product...";
+  loadingText.textContent = " Adding product...";
   submitButton.disabled = true;
   submitButton.appendChild(loadingText);
 
@@ -20,28 +21,32 @@ document.querySelector("#add-product-form")?.addEventListener("submit", async (e
     }
 
     const result = await response.json();
-    alert(result.message);
-    e.target.reset();
-    document.getElementById("image-preview").style.display = "none"; // Hide preview
+    alert(result.message);  // Show success message
+    e.target.reset();  // Reset form after successful submission
+    document.getElementById("image-preview").style.display = "none";  // Hide image preview
+
   } catch (error) {
     console.error("Error adding product:", error);
     alert("An error occurred while adding the product. Please try again.");
   } finally {
+    // Re-enable the submit button after the request
     submitButton.disabled = false;
     submitButton.removeChild(loadingText);
   }
 });
 
-// Image preview for the product image
+// Image preview for the product image before uploading
 document.querySelector("#productImage")?.addEventListener("change", (e) => {
   const file = e.target.files[0];
   const reader = new FileReader();
+  
   reader.onload = function(event) {
     const imagePreview = document.getElementById("image-preview");
     imagePreview.src = event.target.result;
-    imagePreview.style.display = "block"; // Show the preview
+    imagePreview.style.display = "block";  // Show the preview
   };
-  reader.readAsDataURL(file);
+  
+  reader.readAsDataURL(file);  // Convert image to Data URL
 });
 
 // Ordering Page - Load Products
@@ -56,6 +61,8 @@ document.querySelector("#productImage")?.addEventListener("change", (e) => {
     const products = await response.json();
 
     const productList = document.getElementById("product-list");
+    productList.innerHTML = "";  // Clear any existing content
+
     products.forEach(product => {
       const productDiv = document.createElement("div");
       productDiv.innerHTML = `
