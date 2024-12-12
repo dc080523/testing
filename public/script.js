@@ -17,6 +17,7 @@ document.querySelector("#login-form")?.addEventListener("submit", async (e) => {
     if (!response.ok) {
       document.getElementById("login-error").style.display = "block";
     } else {
+      // Redirect to the add product page if login is successful
       window.location.href = "/add-product";
     }
   } catch (error) {
@@ -84,13 +85,19 @@ async function loadProducts() {
     const productList = document.getElementById("product-list");
     productList.innerHTML = "";  
 
+    if (products.length === 0) {
+      productList.innerHTML = "<p>No products available.</p>";
+      return;
+    }
+
     products.forEach(product => {
       const productDiv = document.createElement("div");
+      productDiv.classList.add("product-item");
       productDiv.innerHTML = `
         <h2>${product.name}</h2>
         <p>${product.description}</p>
         <p>₱${product.price}</p>
-        <img src="/uploads/${product.image}" alt="${product.name}" width="200">
+        ${product.image ? `<img src="/uploads/${product.image}" alt="${product.name}" width="200">` : "<p>No image available</p>"}
       `;
       productList.appendChild(productDiv);
     });
@@ -101,4 +108,18 @@ async function loadProducts() {
   }
 }
 
-loadProducts();
+// Check if the admin is logged in (if logged out, redirect to login page)
+async function checkAdminStatus() {
+  try {
+    const response = await fetch("/check-admin-status", { method: "GET" });
+    if (response.status === 401) {
+      window.location.href = "/login";
+    }
+  } catch (error) {
+    console.error("Error checking admin status:", error);
+    window.location.href = "/login";
+  }
+}
+
+// Call this function to check if the admin is logged in when accessing protected routes
+checkAdminStatus();
