@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const cors = require("cors");
 const fs = require("fs");
+const session = require("express-session");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +13,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // File Upload Configuration
 const storage = multer.diskStorage({
@@ -22,18 +28,26 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Products Data
-const productsFile = "./products.json";
-const getProducts = () => {
-  try {
-    return JSON.parse(fs.readFileSync(productsFile, "utf-8"));
-  } catch (err) {
-    return []; // If there's an error reading the file, return an empty array
+// Simple admin authentication (hardcoded for demonstration)
+const adminCredentials = { username: "admin", password: "password" };
+
+// Admin Login API
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  if (username === adminCredentials.username && password === adminCredentials.password) {
+    req.session.adminLoggedIn = true;
+    res.status(200).send("Login successful");
+  } else {
+    res.status(401).send("Invalid credentials");
   }
-};
+});
 
 // Add Product API
 app.post("/add-product", upload.single("productImage"), (req, res) => {
+  if (!req.session.adminLoggedIn) {
+    return res.status(403).send("Unauthorized access");
+  }
+
   const { productId, productName, productDescription, productPrice } = req.body;
   const newProduct = {
     id: productId,
@@ -43,8 +57,9 @@ app.post("/add-product", upload.single("productImage"), (req, res) => {
     image: req.file ? req.file.filename : null,
   };
 
-  const products = getProducts();
-  products.unshift(newProduct); // Add to the top of the list
+  const productsFile = "./products.json";
+  const products = JSON.parse(fs.readFileSync(productsFile, "utf-8"));
+  products.unshift(newProduct);  // Add to the top of the list
   fs.writeFileSync(productsFile, JSON.stringify(products, null, 2));
 
   res.json({ message: "Product added successfully!" });
@@ -52,7 +67,8 @@ app.post("/add-product", upload.single("productImage"), (req, res) => {
 
 // Get Products API
 app.get("/products", (req, res) => {
-  const products = getProducts();
+  const productsFile = "./products.json";
+  const products = JSON.parse(fs.readFileSync(productsFile, "utf-8"));
   res.json(products);
 });
 
