@@ -214,8 +214,8 @@
                     productList.innerHTML = ''; // Clear the list first
                     products.forEach(product => {
                         const li = document.createElement('li');
-                        li.innerHTML = ${product.name} - ${product.price} 
-                            <button class="delete-btn" data-id="${product.id}">Delete</button>;
+                        li.innerHTML = `${product.name} - ${product.price} 
+                            <button class="delete-btn" data-id="${product.id}">Delete</button>`;
                         productList.appendChild(li);
                     });
 
@@ -231,7 +231,7 @@
         }
 
         function deleteProduct(productId) {
-            fetch(/delete-product/${productId}, {
+            fetch(`/delete-product/${productId}`, {
                 method: 'DELETE',
             })
             .then(response => {
