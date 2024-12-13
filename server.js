@@ -17,15 +17,15 @@ if (!fs.existsSync(imagesDir)) {
 let products = [
     {
         id: 'P001',
-        name: 'Sample Product 1',
-        description: 'A description for the first sample product.',
+        name: 'T-Shirt',
+        description: 'Stay comfortable and stylish with this classic, soft cotton t-shirt. Featuring a timeless design, it’s perfect for casual wear or layering. Available in a range of sizes, it offers a relaxed fit that’s both breathable and easy to move in. A must-have for your wardrobe!"',
         price: '₱500.00',
         image: '/images/sample-product-1.jpg',
     },
     {
         id: 'P002',
-        name: 'Sample Product 2',
-        description: 'A description for the second sample product.',
+        name: 'Shoes',
+        description: 'Step up your style with these versatile and comfortable shoes. Designed for all-day wear, they offer a perfect blend of durability and breathability.',
         price: '₱800.00',
         image: '/images/sample-product-2.jpg',
     }
