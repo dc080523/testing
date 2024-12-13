@@ -129,12 +129,15 @@ app.get('/api/products', (req, res) => {
     res.json(products);
 });
 
-// Home route (For checking that the server is up)
-app.get('/', (req, res) => {
-    res.send('Server is up and running!');
+// Admin session check route (checks if user is logged in as admin)
+app.get('/check-admin-session', (req, res) => {
+    if (req.session.isAdmin) {
+        res.json({ isAdmin: true });
+    } else {
+        res.json({ isAdmin: false });
+    }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+// Home route (For checking that the server is up)
+app.get('/', (req, res) => {
+    res.send('Server is up 
