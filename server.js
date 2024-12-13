@@ -2,9 +2,16 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const session = require('express-session');
+const fs = require('fs');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Ensure the 'public/images' directory exists
+const imagesDir = './public/images';
+if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+}
 
 // In-memory product data (for demo purposes)
 let products = [
@@ -48,7 +55,19 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png|gif/;
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb(new Error('Only image files are allowed.'));
+    }
+});
 
 // Admin login credentials
 const adminCredentials = { username: 'admin', password: 'admin123' };
@@ -86,7 +105,7 @@ app.post('/add-product', upload.single('image'), (req, res) => {
         image: '/images/' + req.file.filename,
     };
     products.unshift(newProduct);  // Add to the top of the list
-    res.redirect('/admin.html');  // Redirect to the admin page after adding the product
+    res.redirect('/');  // Redirect to homepage or product list after adding the product
 });
 
 // Admin Product List Route (only accessible after login)
@@ -101,7 +120,7 @@ app.get('/admin/products', (req, res) => {
 // Admin logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-        res.redirect('/admin.html');
+        res.redirect('/');  // Redirect to the homepage after logout
     });
 });
 
