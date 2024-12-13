@@ -18,14 +18,14 @@ let products = [
     {
         id: 'P001',
         name: 'T-Shirt',
-        description: 'Stay comfortable and stylish with this classic, soft cotton t-shirt. Featuring a timeless design, it’s perfect for casual wear or layering. Available in a range of sizes, it offers a relaxed fit that’s both breathable and easy to move in. A must-have for your wardrobe!"',
+        description: 'Stay comfortable and stylish with this classic, soft cotton t-shirt.',
         price: '₱500.00',
         image: '/images/sample-product-1.jpg',
     },
     {
         id: 'P002',
         name: 'Shoes',
-        description: 'Step up your style with these versatile and comfortable shoes. Designed for all-day wear, they offer a perfect blend of durability and breathability.',
+        description: 'Step up your style with these versatile and comfortable shoes.',
         price: '₱800.00',
         image: '/images/sample-product-2.jpg',
     }
@@ -46,7 +46,7 @@ app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }  // Make sure this is false for development, true if using HTTPS
+    cookie: { secure: false }
 }));
 
 // Middleware to check if the user is an admin
@@ -114,15 +114,15 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
     }
 
     // Validate product Name
-    const nameRegex = /^[a-zA-Z\s]{1,20}$/;
+    const nameRegex = /^[a-zA-Z\s]{1,50}$/;  // Increased length for more flexibility
     if (!name || !nameRegex.test(name)) {
-        return res.status(400).send('Error: Product Name must only contain alphabetic characters and spaces, up to 20 characters.');
+        return res.status(400).send('Error: Product Name must only contain alphabetic characters and spaces, up to 50 characters.');
     }
 
     // Validate product Description
-    const descriptionRegex = /^[a-zA-Z0-9\s]{1,50}$/;
+    const descriptionRegex = /^[a-zA-Z0-9\s,.'-]{1,100}$/;  // Increased length for description
     if (!description || !descriptionRegex.test(description)) {
-        return res.status(400).send('Error: Product Description must be alphanumeric and up to 50 characters.');
+        return res.status(400).send('Error: Product Description must be alphanumeric and up to 100 characters.');
     }
 
     // Validate product Price
