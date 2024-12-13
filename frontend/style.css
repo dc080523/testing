@@ -60,7 +60,8 @@ h1, h2 {
 
 .product img {
     width: 100%;
-    height: auto;
+    height: 200px; /* Set a fixed height to prevent oversized images */
+    object-fit: cover; /* Ensures the images maintain their aspect ratio and fill the container */
     border-radius: 8px;
 }
 
