@@ -292,23 +292,19 @@
             .then(response => {
                 if (response.ok) {
                     alert('Product added successfully');
-                    fetchProducts(); // Refresh product list
-                    this.reset();
+                    fetchProducts();
                 } else {
                     alert('Failed to add product');
                 }
-            })
-            .catch(error => console.log('Error adding product:', error));
+            });
         });
 
         document.getElementById('back-to-products-btn').addEventListener('click', function() {
-            document.getElementById('admin-dashboard').style.display = 'none';
-            document.getElementById('admin-login-container').style.display = 'block';
-            localStorage.removeItem('loggedIn');
+            window.location.href = '/';  // go back to product page
         });
 
-        function removeNewLines(input) {
-            input.value = input.value.replace(/(\r\n|\n|\r)/gm, ''); // Remove new lines from text area
+        function removeNewLines(textarea) {
+            textarea.value = textarea.value.replace(/\n/g, ' ');
         }
     </script>
 </body>
