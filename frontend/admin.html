@@ -11,17 +11,17 @@
 
     <div id="login-section">
         <h2>Admin Login</h2>
-        <form id="admin-login-form">
+        <form id="login-form">
             <input type="text" id="username" name="username" placeholder="Username" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        <p id="login-error" class="error" style="display: none;">Invalid credentials, please try again.</p>
+        <p id="login-error" style="color: red; display: none;">Invalid credentials, please try again.</p>
     </div>
 
     <div id="admin-dashboard" style="display: none;">
         <h2>Product List</h2>
-        <div id="product-list" class="product-container"></div>
+        <ul id="product-list"></ul>
 
         <h2>Add New Product</h2>
         <form id="add-product-form" enctype="multipart/form-data">
@@ -35,7 +35,7 @@
     </div>
 
     <script>
-        document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+        document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const username = document.getElementById('username').value;
@@ -64,17 +64,9 @@
                     const productList = document.getElementById('product-list');
                     productList.innerHTML = '';
                     products.forEach(product => {
-                        const productCard = document.createElement('div');
-                        productCard.classList.add('product-card');
-                        productCard.innerHTML = 
-                            <img src="${product.image}" alt="${product.name}" class="product-img">
-                            <div class="product-details">
-                                <h3>${product.name}</h3>
-                                <p class="product-description">${product.description}</p>
-                                <p class="product-price">${product.price}</p>
-                            </div>
-                        ;
-                        productList.appendChild(productCard);
+                        const li = document.createElement('li');
+                        li.innerHTML = ${product.name} - ${product.price};
+                        productList.appendChild(li);
                     });
                 });
         }
