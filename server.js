@@ -18,7 +18,7 @@ let products = [
     {
         id: 'P001',
         name: 'T-Shirt',
-        description: 'Stay comfortable and stylish with this classic, soft cotton t-shirt. Featuring a timeless design, it’s perfect for casual wear or layering. Available in a range of sizes, it offers a relaxed fit that’s both breathable and easy to move in. A must-have for your wardrobe!"',
+        description: 'Stay comfortable and stylish with this classic, soft cotton t-shirt. Featuring a timeless design, it’s perfect for casual wear or layering. Available in a range of sizes, it offers a relaxed fit that’s both breathable and easy to move in. A must-have for your wardrobe!',
         price: '₱500.00',
         image: '/images/sample-product-1.jpg',
     },
