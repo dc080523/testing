@@ -1,10 +1,19 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
     text-align: center;
+}
+
+#product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .product {
@@ -14,6 +23,14 @@ h1 {
     display: inline-block;
     width: 200px;
     text-align: center;
+    border-radius: 8px;  /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+}
+
+.product img {
+    margin: 10px 0;
+    max-width: 100%;
+    height: auto;
 }
 
 form {
@@ -49,4 +66,11 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .product {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
