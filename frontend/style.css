@@ -1,4 +1,4 @@
-/* General Body Styles */
+/* General Body Styles /
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -7,7 +7,7 @@ body {
     color: #333;
 }
 
-/* Header Styles */
+/* Header style */
 h1, h2 {
     text-align: center;
     margin-top: 30px;
@@ -15,7 +15,7 @@ h1, h2 {
     color: #333;
 }
 
-/* Product Section Styles */
+/* Product Section style */
 #product-container {
     display: flex;
     flex-wrap: wrap;
@@ -54,16 +54,16 @@ h1, h2 {
 .product .price {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #FDB94A; /* Yellowish tone to match your preference */
+    color: #FDB94A; 
     margin-bottom: 20px;
 }
 
 /* Product Image Styles */
 .product img {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    max-height: 200px; /* Restrict height to fit the container */
-    object-fit: contain; /* Ensures the image fits without distortion */
+    height: auto; 
+    max-height: 200px; 
+    object-fit: contain; 
     border-radius: 8px;
 }
 
@@ -116,7 +116,7 @@ input[type="tel"] {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus {
-    border-color: #FDB94A; /* Focus color adjusted */
+    border-color: #FDB94A; 
     outline: none;
 }
 
@@ -124,7 +124,7 @@ input[type="tel"]:focus {
 #order-form button {
     padding: 14px 30px;
     font-size: 1.3rem;
-    background-color: #FDB94A; /* Yellowish color for consistency */
+    background-color: #FDB94A; 
     color: white;
     border: none;
     cursor: pointer;
@@ -134,7 +134,7 @@ input[type="tel"]:focus {
 }
 
 #order-form button:hover {
-    background-color: #f0a30d; /* Darker yellowish tone */
+    background-color: #f0a30d; 
 }
 
 /* Error Message Styles */
@@ -162,7 +162,7 @@ input[type="tel"]:focus {
     font-size: 2rem; /* Increase size of header for better visibility */
     color: #333;
     margin-bottom: 25px;
-    text-align: center; /* Ensure header is centered */
+    text-align: center; /* header is centered */
 }
 
 /* Admin Login Button Styles */
@@ -209,7 +209,7 @@ input[type="tel"]:focus {
 
 .dashboard-card .card-data {
     font-size: 1.3rem;
-    color: #FDB94A; /* Consistent color for data */
+    color: #FDB94A; 
 }
 
 .dashboard-card .card-actions {
