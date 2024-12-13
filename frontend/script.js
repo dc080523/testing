@@ -2,8 +2,10 @@ window.onload = async () => {
     const productList = document.getElementById('product-list');
     
     try {
-        const response = await fetch('https://<your-railway-url>.railway.app/api/products');
+        const response = await fetch('https://independent-renewal-production.up.railway.app/api/products');
         const products = await response.json();
+        
+        console.log(products);  // Debugging the products data
         
         products.forEach(product => {
             const productDiv = document.createElement('div');
