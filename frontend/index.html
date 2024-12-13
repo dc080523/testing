@@ -41,7 +41,7 @@
             })
             .catch(error => console.log('Error checking admin session:', error));
 
-        fetch('/api/products') // Ensure this endpoint is correct
+        fetch('/api/products') // Makes sure that the  endpoint is correct
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
