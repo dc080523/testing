@@ -5,154 +5,28 @@ body {
     padding: 0;
     background-color: #f9f9f9;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 /* Header Styles */
-h1, h2 {
+h1 {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 2.5rem;
     color: #333;
 }
 
-/* Product Section Styles */
-#product-container {
+/* Login Section Styles */
+#login-section {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 25px;
-    padding: 30px;
-}
-
-.product {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.product h3 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.product p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.product .price {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #FDB94A; /* Yellowish tone to match your preference */
-    margin-bottom: 20px;
-}
-
-.product img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-/* Order Form Styles */
-#order-form {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 25px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-#order-form h3 {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-    color: #333;
-}
-
-/* Select Product Styles */
-#product-list {
-    margin-bottom: 30px;
-}
-
-#product-list div {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-}
-
-#product-list input[type="checkbox"] {
-    margin-right: 15px;
-}
-
-/* Shipping Information Styles */
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus {
-    border-color: #FDB94A; /* Focus color adjusted */
-    outline: none;
-}
-
-/* Submit Button Styles */
-#order-form button {
-    padding: 14px 30px;
-    font-size: 1.3rem;
-    background-color: #FDB94A; /* Yellowish color for consistency */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-#order-form button:hover {
-    background-color: #f0a30d; /* Darker yellowish tone */
-}
-
-/* Error Message Styles */
-.error {
-    color: red;
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Admin Login Styles */
-#admin-login-container {
-    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f1f1f1;
-}
-
-#admin-login-form {
-    background-color: #fff;
+    background-color: #f9f9f9;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -161,12 +35,7 @@ input[type="tel"]:focus {
     text-align: center;
 }
 
-#admin-login-form h2 {
-    margin-bottom: 25px;
-    font-size: 2rem;
-    color: #333;
-}
-
+/* Login Form Styles */
 #admin-login-form input[type="text"],
 #admin-login-form input[type="password"] {
     width: 100%;
@@ -175,15 +44,7 @@ input[type="tel"]:focus {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
-    max-width: 300px; /* Reduced width */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#admin-login-form input[type="text"]:focus,
-#admin-login-form input[type="password"]:focus {
-    border-color: #FDB94A; /* Focus color for consistency */
-    outline: none;
+    max-width: 300px;
 }
 
 #admin-login-form button {
@@ -196,26 +57,47 @@ input[type="tel"]:focus {
     border-radius: 5px;
     transition: background-color 0.3s ease;
     width: 100%;
+    max-width: 300px;
 }
 
 #admin-login-form button:hover {
     background-color: #218838;
 }
 
-#admin-login-form p {
-    margin-top: 20px;
+#error-message {
+    color: red;
     font-size: 1rem;
-    color: #555;
 }
 
-/* Admin Login Button Styles */
-#admin-link {
-    text-align: center;
-    margin: 30px 0;
+/* Admin Dashboard Styles */
+#admin-dashboard {
+    display: none;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
 }
 
-#admin-link button {
-    padding: 12px 25px;
+#admin-dashboard h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+#add-product-form input,
+#add-product-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#add-product-form button {
+    padding: 14px 30px;
     font-size: 1.2rem;
     background-color: #28a745;
     color: white;
@@ -225,69 +107,6 @@ input[type="tel"]:focus {
     transition: background-color 0.3s ease;
 }
 
-#admin-link button:hover {
+#add-product-form button:hover {
     background-color: #218838;
-}
-
-/* Admin Dashboard Styles */
-#dashboard-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-#dashboard-container h3 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 25px;
-}
-
-.dashboard-card {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.dashboard-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-card .card-title {
-    font-size: 1.4rem;
-    color: #333;
-}
-
-.dashboard-card .card-data {
-    font-size: 1.3rem;
-    color: #FDB94A; /* Consistent color for data */
-}
-
-.dashboard-card .card-actions {
-    display: flex;
-    align-items: center;
-}
-
-.dashboard-card .card-actions button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
-    margin-left: 10px;
-}
-
-.dashboard-card .card-actions button:hover {
-    background-color: #0056b3;
 }
