@@ -142,6 +142,69 @@ input[type="tel"]:focus {
     margin-top: 20px;
 }
 
+/* Admin Login Styles */
+#admin-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f1f1f1;
+}
+
+#admin-login-form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+#admin-login-form h2 {
+    margin-bottom: 25px;
+    font-size: 2rem;
+    color: #333;
+}
+
+#admin-login-form input[type="text"],
+#admin-login-form input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+#admin-login-form input[type="text"]:focus,
+#admin-login-form input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#admin-login-form button {
+    padding: 14px 30px;
+    font-size: 1.2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+#admin-login-form button:hover {
+    background-color: #218838;
+}
+
+#admin-login-form p {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #555;
+}
+
 /* Admin Login Button Styles */
 #admin-link {
     text-align: center;
@@ -219,24 +282,4 @@ input[type="tel"]:focus {
 
 .dashboard-card .card-actions button:hover {
     background-color: #0056b3;
-}
-
-#admin-link {
-    text-align: center;
-    margin: 30px 0;
-}
-
-#admin-link button {
-    padding: 12px 25px;
-    font-size: 1.2rem;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-#admin-link button:hover {
-    background-color: #218838;
 }
