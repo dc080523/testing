@@ -1,36 +1,80 @@
-<!-- admin.html -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
-    <h2>Product List</h2>
-    <ul id="product-list">
-        <!-- Product list will be populated here -->
-    </ul>
-    <h2>Add New Product</h2>
-    <form id="add-product-form" enctype="multipart/form-data">
-        <input type="text" name="id" placeholder="Product ID" required>
-        <input type="text" name="name" placeholder="Product Name" required>
-        <textarea name="description" placeholder="Description" required></textarea>
-        <input type="text" name="price" placeholder="Price" required>
-        <input type="file" name="image" required>
-        <button type="submit">Add Product</button>
-    </form>
+
+    <!-- Admin Login Form -->
+    <div id="login-section">
+        <h2>Admin Login</h2>
+        <form id="login-form">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-error" style="color: red; display: none;">Invalid credentials, please try again.</p>
+    </div>
+
+    <!-- Product List & Add Product Form (only visible after login) -->
+    <div id="admin-dashboard" style="display: none;">
+        <h2>Product List</h2>
+        <ul id="product-list">
+            <!-- Product list will be populated here -->
+        </ul>
+
+        <h2>Add New Product</h2>
+        <form id="add-product-form" enctype="multipart/form-data">
+            <input type="text" name="id" placeholder="Product ID" required>
+            <input type="text" name="name" placeholder="Product Name" required>
+            <textarea name="description" placeholder="Description" required></textarea>
+            <input type="text" name="price" placeholder="Price" required>
+            <input type="file" name="image" required>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
 
     <script>
-        // Fetch products and display them
-        fetch('/admin/products')
-            .then(response => response.json())
-            .then(products => {
-                const productList = document.getElementById('product-list');
-                products.forEach(product => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `${product.name} - ${product.price}`;
-                    productList.appendChild(li);
-                });
+        // Admin Login Form Handling
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Hide login section and show admin dashboard
+                    document.getElementById('login-section').style.display = 'none';
+                    document.getElementById('admin-dashboard').style.display = 'block';
+
+                    // Fetch and display product list
+                    fetch('/admin/products')
+                        .then(response => response.json())
+                        .then(products => {
+                            const productList = document.getElementById('product-list');
+                            products.forEach(product => {
+                                const li = document.createElement('li');
+                                li.innerHTML = `${product.name} - ${product.price}`;
+                                productList.appendChild(li);
+                            });
+                        });
+                } else {
+                    // Show error message for invalid login
+                    document.getElementById('login-error').style.display = 'block';
+                }
             });
+        });
 
         // Handle form submission to add a new product
         document.getElementById('add-product-form').addEventListener('submit', function(e) {
@@ -45,6 +89,8 @@
             .then(response => {
                 if (response.ok) {
                     alert('Product added successfully');
+                    // Optionally, reload the product list after adding a new product
+                    location.reload();
                 } else {
                     alert('Failed to add product');
                 }
