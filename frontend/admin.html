@@ -184,19 +184,6 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loggedIn = localStorage.getItem('loggedIn');
-            
-            if (loggedIn === 'true') {
-                document.getElementById('admin-login-container').style.display = 'none';
-                document.getElementById('admin-dashboard').style.display = 'block';
-                fetchProducts();
-            } else {
-                document.getElementById('admin-login-container').style.display = 'block';
-                document.getElementById('admin-dashboard').style.display = 'none';
-            }
-        });
-
         document.getElementById('admin-login-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -210,7 +197,6 @@
             })
             .then(response => {
                 if (response.ok) {
-                    localStorage.setItem('loggedIn', 'true'); // Store the login status
                     document.getElementById('admin-login-container').style.display = 'none';
                     document.getElementById('admin-dashboard').style.display = 'block';
                     fetchProducts();
@@ -228,8 +214,8 @@
                     productList.innerHTML = ''; // Clear the list first
                     products.forEach(product => {
                         const li = document.createElement('li');
-                        li.innerHTML = `${product.name} - ${product.price} 
-                            <button class="delete-btn" data-id="${product.id}">Delete</button>`;
+                        li.innerHTML = ${product.name} - ${product.price} 
+                            <button class="delete-btn" data-id="${product.id}">Delete</button>;
                         productList.appendChild(li);
                     });
 
@@ -245,7 +231,7 @@
         }
 
         function deleteProduct(productId) {
-            fetch(`/delete-product/${productId}`, {
+            fetch(/delete-product/${productId}, {
                 method: 'DELETE',
             })
             .then(response => {
@@ -278,14 +264,6 @@
 
         document.getElementById('back-to-products-btn').addEventListener('click', function() {
             window.location.href = '/index.html'; // Redirect to the products page
-        });
-
-        // Prevent typing beyond the 20-character limit in the product name input
-        document.getElementById('add-product-form').querySelector('input[name="name"]').addEventListener('input', function(e) {
-            const maxLength = 20;
-            if (this.value.length >= maxLength) {
-                this.value = this.value.slice(0, maxLength); // Prevents typing beyond 20 characters
-            }
         });
     </script>
 </body>
