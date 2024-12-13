@@ -230,7 +230,7 @@
             .then(response => {
                 console.log('Response status:', response.status);
                 if (response.ok) {
-                    localStorage.setItem('loggedIn', 'true'); // Store the login status
+                    localStorage.setItem('loggedIn', 'true'); // Store LOGIN STATUS
                     document.getElementById('admin-login-container').style.display = 'none';
                     document.getElementById('admin-dashboard').style.display = 'block';
                     fetchProducts();
@@ -248,7 +248,7 @@
                 .then(response => response.json())
                 .then(products => {
                     const productList = document.getElementById('product-list');
-                    productList.innerHTML = ''; // Clear the list first
+                    productList.innerHTML = ''; // Clears the list 
                     products.forEach(product => {
                         const li = document.createElement('li');
                         li.innerHTML = `${product.name} - ${product.price} 
@@ -256,7 +256,7 @@
                         productList.appendChild(li);
                     });
 
-                    // Add event listeners to the delete buttons
+                    // Event listener for button
                     document.querySelectorAll('.delete-btn').forEach(button => {
                         button.addEventListener('click', function() {
                             const productId = this.getAttribute('data-id');
@@ -274,7 +274,7 @@
             .then(response => {
                 if (response.ok) {
                     alert('Product deleted successfully');
-                    fetchProducts(); // Refresh product list after deletion
+                    fetchProducts(); // Refresh product list after deleting items
                 } else {
                     alert('Failed to delete product');
                 }
@@ -308,7 +308,7 @@
         });
 
         function removeNewLines(input) {
-            input.value = input.value.replace(/(\r\n|\n|\r)/gm, ''); // Remove new lines from textarea
+            input.value = input.value.replace(/(\r\n|\n|\r)/gm, ''); // Remove new lines from text area
         }
     </script>
 </body>
