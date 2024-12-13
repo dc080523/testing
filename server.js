@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const session = require('express-session');
-const fs = require('fs');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -24,12 +24,6 @@ let products = [
     }
 ];
 
-// Ensure the public/images directory exists
-const imagesDir = path.join(__dirname, 'public', 'images');
-if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir, { recursive: true });
-}
-
 // Static files (for images)
 app.use(express.static('public'));
 
@@ -37,14 +31,11 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Setting up session with secure cookie in production
+// Setting up session
 app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production', // Set to true if in production (HTTPS)
-    }
 }));
 
 // Setup for file uploads using Multer
@@ -83,6 +74,10 @@ app.post('/add-product', upload.single('image'), (req, res) => {
     }
 
     const { id, name, description, price } = req.body;
+    if (!id || !name || !description || !price) {
+        return res.status(400).send('All product fields are required');
+    }
+
     const newProduct = {
         id,
         name,
@@ -94,9 +89,13 @@ app.post('/add-product', upload.single('image'), (req, res) => {
     res.redirect('/admin.html');  // Redirect to the admin page after adding the product
 });
 
-// API to fetch all products (for the frontend)
-app.get('/api/products', (req, res) => {
-    res.json(products);
+// Admin Product List Route (only accessible after login)
+app.get('/admin/products', (req, res) => {
+    if (!req.session.isAdmin) {
+        return res.status(403).send('Unauthorized');
+    }
+
+    res.json(products);  // Send the list of products to the admin
 });
 
 // Admin logout route
@@ -104,6 +103,16 @@ app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/admin.html');
     });
+});
+
+// API to fetch all products (for the frontend)
+app.get('/api/products', (req, res) => {
+    res.json(products);
+});
+
+// Home route (For checking that the server is up)
+app.get('/', (req, res) => {
+    res.send('Server is up and running!');
 });
 
 // Start the server
