@@ -283,25 +283,46 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Product deleted successfully');
-                    fetchProducts(); // Reload the product list
+                    fetchProducts(); // Refresh the product list after deletion
                 } else {
-                    alert('Failed to delete product');
+                    console.log('Failed to delete product');
                 }
             })
             .catch(error => console.error('Error deleting product:', error));
         }
 
+        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('/admin/products', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Product added successfully');
+                    fetchProducts(); // Refresh the product list
+                } else {
+                    alert('Failed to add product');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding product:', error);
+            });
+        });
+
         document.getElementById('back-to-products-btn').addEventListener('click', function() {
-            window.location.href = '/products'; // Redirect to product page
+            window.location.href = '/'; // Redirect to product listing page
         });
 
         document.getElementById('back-to-dashboard-btn').addEventListener('click', function() {
-            window.location.href = '/admin-dashboard'; // Go to admin dashboard page
+            window.location.href = '/admin'; // Redirect to admin dashboard
         });
 
         function removeNewLines(textarea) {
-            textarea.value = textarea.value.replace(/\n/g, ' ');
+            textarea.value = textarea.value.replace(/(\r\n|\n|\r)/gm, ' ');
         }
     </script>
 </body>
