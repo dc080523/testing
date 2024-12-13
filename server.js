@@ -101,7 +101,7 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
         return res.status(400).send(req.fileValidationError);
     }
 
-    const { id, name, description, price } = req.body;
+    let { id, name, description, price } = req.body;
 
     // Validate product ID
     const idRegex = /^[a-zA-Z0-9]{1,20}$/;
@@ -122,10 +122,13 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
     }
 
     // Validate product Price
-    const priceRegex = /^₱\d+(\.\d{1,2})?$/;
+    const priceRegex = /^\d+(\.\d{1,2})?$/;
     if (!price || !priceRegex.test(price)) {
-        return res.status(400).send('Error: Product Price must be in the format "₱<number>", e.g., ₱500.00.');
+        return res.status(400).send('Error: Product Price must be a number without the peso sign (e.g., 500.00).');
     }
+
+    // Automatically prepend the peso sign to the price
+    price = '₱' + price;
 
     // Check if image file exists
     if (!req.file) {
