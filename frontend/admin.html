@@ -58,17 +58,18 @@
         });
 
         function fetchProducts() {
-            fetch('/admin/products')
+            fetch('/admin/products') // Ensure this endpoint is correct
                 .then(response => response.json())
                 .then(products => {
                     const productList = document.getElementById('product-list');
-                    productList.innerHTML = '';
+                    productList.innerHTML = ''; // Clear the list first
                     products.forEach(product => {
                         const li = document.createElement('li');
-                        li.innerHTML = ${product.name} - ${product.price};
+                        li.innerHTML = `${product.name} - ${product.price}`;
                         productList.appendChild(li);
                     });
-                });
+                })
+                .catch(error => console.log('Error fetching products:', error));
         }
 
         document.getElementById('add-product-form').addEventListener('submit', function(e) {
@@ -82,7 +83,7 @@
             .then(response => {
                 if (response.ok) {
                     alert('Product added successfully');
-                    fetchProducts();
+                    fetchProducts(); // Refresh product list after adding a new product
                 } else {
                     alert('Failed to add product');
                 }
