@@ -45,6 +45,14 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+// Middleware to check if the user is an admin
+const isAdmin = (req, res, next) => {
+    if (!req.session.isAdmin) {
+        return res.status(403).send('Unauthorized');
+    }
+    next();
+};
+
 // Setup for file uploads using Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -65,7 +73,8 @@ const upload = multer({
         if (mimetype && extname) {
             return cb(null, true);
         }
-        cb(new Error('Only image files are allowed.'));
+        req.fileValidationError = 'Only image files are allowed.';
+        return cb(null, false);
     }
 });
 
@@ -80,16 +89,16 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
     if (username === adminCredentials.username && password === adminCredentials.password) {
         req.session.isAdmin = true;
-        res.redirect('/admin.html');
+        res.json({ success: true });
     } else {
-        res.status(401).send('Invalid credentials');
+        res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 });
 
 // Admin Add Product Route (only accessible after login)
-app.post('/add-product', upload.single('image'), (req, res) => {
-    if (!req.session.isAdmin) {
-        return res.status(403).send('Unauthorized');
+app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
+    if (req.fileValidationError) {
+        return res.status(400).send(req.fileValidationError);
     }
 
     const { id, name, description, price } = req.body;
@@ -132,22 +141,18 @@ app.post('/add-product', upload.single('image'), (req, res) => {
     };
 
     products.unshift(newProduct);  // Add to the top of the list
-    res.redirect('/');  // Redirect to homepage or product list after adding the product
+    res.json({ success: true, product: newProduct });
 });
 
 // Admin Product List Route (only accessible after login)
-app.get('/admin/products', (req, res) => {
-    if (!req.session.isAdmin) {
-        return res.status(403).send('Unauthorized');
-    }
-
+app.get('/admin/products', isAdmin, (req, res) => {
     res.json(products);  // Send the list of products to the admin
 });
 
 // Admin logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-        res.redirect('/');  // Redirect to the homepage after logout
+        res.redirect('/index.html');  // Redirect to homepage after logout
     });
 });
 
@@ -158,11 +163,7 @@ app.get('/api/products', (req, res) => {
 
 // Admin session check route (checks if user is logged in as admin)
 app.get('/check-admin-session', (req, res) => {
-    if (req.session.isAdmin) {
-        res.json({ isAdmin: true });
-    } else {
-        res.json({ isAdmin: false });
-    }
+    res.json({ isAdmin: req.session.isAdmin || false });
 });
 
 // Home route (For checking that the server is up)
