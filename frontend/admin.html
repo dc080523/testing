@@ -251,8 +251,8 @@
                     productList.innerHTML = ''; // Clear the list first
                     products.forEach(product => {
                         const li = document.createElement('li');
-                        li.innerHTML = ${product.name} - ${product.price} 
-                            <button class="delete-btn" data-id="${product.id}">Delete</button>;
+                        li.innerHTML = `${product.name} - ${product.price} 
+                            <button class="delete-btn" data-id="${product.id}">Delete</button>`;
                         productList.appendChild(li);
                     });
 
@@ -268,7 +268,7 @@
         }
 
         function deleteProduct(productId) {
-            fetch(/delete-product/${productId}, {
+            fetch(`/delete-product/${productId}`, {
                 method: 'DELETE',
             })
             .then(response => {
@@ -292,7 +292,8 @@
             .then(response => {
                 if (response.ok) {
                     alert('Product added successfully');
-                    fetchProducts(); // Refresh product list after adding
+                    fetchProducts(); // Refresh product list
+                    this.reset();
                 } else {
                     alert('Failed to add product');
                 }
@@ -306,8 +307,8 @@
             localStorage.removeItem('loggedIn');
         });
 
-        function removeNewLines(textarea) {
-            textarea.value = textarea.value.replace(/\n/g, ' ');
+        function removeNewLines(input) {
+            input.value = input.value.replace(/(\r\n|\n|\r)/gm, ''); // Remove new lines from textarea
         }
     </script>
 </body>
