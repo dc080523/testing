@@ -15,19 +15,20 @@
 
         h1 {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 50px;
             color: #333;
         }
 
-        /* Admin Login Form Styles */
         #admin-login-container {
-            width: 300px;
+            width: 100%;
+            max-width: 350px;
             background-color: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin: 40px auto;
             text-align: center;
+            box-sizing: border-box;
         }
 
         #admin-login-container h2 {
@@ -38,7 +39,7 @@
 
         #admin-login-container input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -48,7 +49,7 @@
 
         #admin-login-container button {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -67,19 +68,11 @@
             display: none;
         }
 
-        /* Admin Dashboard Styles */
         #admin-dashboard {
             display: none;
             padding: 20px;
         }
 
-        #admin-dashboard h2 {
-            font-size: 1.8rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        /* Product List Styles */
         #product-list {
             list-style: none;
             padding: 0;
@@ -93,7 +86,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Add Product Form Styles */
         #add-product-form {
             background-color: #fff;
             padding: 20px;
@@ -128,7 +120,6 @@
 <body>
     <h1>Admin Dashboard</h1>
 
-    <!-- Admin Login Section -->
     <div id="admin-login-container">
         <h2>Admin Login</h2>
         <form id="admin-login-form">
@@ -139,7 +130,6 @@
         <p id="login-error" class="error">Invalid credentials, please try again.</p>
     </div>
 
-    <!-- Admin Dashboard Section -->
     <div id="admin-dashboard">
         <h2>Product List</h2>
         <ul id="product-list"></ul>
@@ -156,7 +146,6 @@
     </div>
 
     <script>
-        // Admin Login Handling
         document.getElementById('admin-login-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -179,13 +168,12 @@
             });
         });
 
-        // Fetching Products to display in the list
         function fetchProducts() {
             fetch('/admin/products')
                 .then(response => response.json())
                 .then(products => {
                     const productList = document.getElementById('product-list');
-                    productList.innerHTML = ''; // Clear previous list
+                    productList.innerHTML = ''; // Clear the list first
                     products.forEach(product => {
                         const li = document.createElement('li');
                         li.innerHTML = `${product.name} - ${product.price}`;
@@ -195,7 +183,6 @@
                 .catch(error => console.log('Error fetching products:', error));
         }
 
-        // Add Product Handling
         document.getElementById('add-product-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
