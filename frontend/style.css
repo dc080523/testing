@@ -1,17 +1,18 @@
 /* General Body Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
     color: #333;
 }
 
 /* Header Styles */
 h1, h2 {
     text-align: center;
-    margin-top: 20px;
-    font-size: 2rem;
+    margin-top: 30px;
+    font-size: 2.5rem;
+    color: #333;
 }
 
 /* Product Section Styles */
@@ -19,83 +20,82 @@ h1, h2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 20px;
-    padding: 20px;
+    gap: 25px;
+    padding: 30px;
 }
 
-/* Individual Product Styles */
 .product {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    padding: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    padding: 20px;
     text-align: center;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Product Title */
 .product h3 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-/* Product Description */
 .product p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #555;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-/* Product Price */
 .product .price {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #007bff;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* Product Image */
 .product img {
     width: 100%;
+    height: auto;
     border-radius: 8px;
 }
 
 /* Order Form Styles */
 #order-form {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 25px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 #order-form h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
     color: #333;
 }
 
 /* Select Product Styles */
 #product-list {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #product-list div {
-    margin-bottom: 15px;
-    padding: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
     background-color: #f9f9f9;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
 }
 
 #product-list input[type="checkbox"] {
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 /* Shipping Information Styles */
@@ -103,8 +103,8 @@ input[type="text"],
 input[type="email"],
 input[type="tel"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 12px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
@@ -119,8 +119,8 @@ input[type="tel"]:focus {
 
 /* Submit Button Styles */
 #order-form button {
-    padding: 12px 25px;
-    font-size: 1.2rem;
+    padding: 14px 30px;
+    font-size: 1.3rem;
     background-color: #007bff;
     color: white;
     border: none;
@@ -140,4 +140,103 @@ input[type="tel"]:focus {
     font-size: 1rem;
     text-align: center;
     margin-top: 20px;
+}
+
+/* Admin Login Button Styles */
+#admin-link {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#admin-link button {
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#admin-link button:hover {
+    background-color: #218838;
+}
+
+/* Admin Dashboard Styles */
+#dashboard-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+#dashboard-container h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.dashboard-card {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card .card-title {
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.dashboard-card .card-data {
+    font-size: 1.3rem;
+    color: #007bff;
+}
+
+.dashboard-card .card-actions {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-card .card-actions button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+.dashboard-card .card-actions button:hover {
+    background-color: #0056b3;
+}
+
+#admin-link {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#admin-link button {
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#admin-link button:hover {
+    background-color: #218838;
 }
