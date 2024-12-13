@@ -93,8 +93,29 @@ app.post('/add-product', upload.single('image'), (req, res) => {
     }
 
     const { id, name, description, price } = req.body;
-    if (!id || !name || !description || !price) {
-        return res.status(400).send('All product fields are required');
+
+    // Product ID validation: Alphanumeric, max 20 chars
+    const idRegex = /^[a-zA-Z0-9]{1,20}$/;
+    if (!id || !idRegex.test(id)) {
+        return res.status(400).send('Product ID must be alphanumeric and up to 20 characters');
+    }
+
+    // Product Name validation: Only alphabetic characters, max 20 chars
+    const nameRegex = /^[a-zA-Z\s]{1,20}$/;
+    if (!name || !nameRegex.test(name)) {
+        return res.status(400).send('Product Name must only contain alphabetic characters and spaces, up to 20 characters');
+    }
+
+    // Product Description validation: Alphanumeric with spaces, max 50 chars
+    const descriptionRegex = /^[a-zA-Z0-9\s]{1,50}$/;
+    if (!description || !descriptionRegex.test(description)) {
+        return res.status(400).send('Product Description must be alphanumeric and up to 50 characters');
+    }
+
+    // Product Price validation: Should start with the Peso symbol and be numeric
+    const priceRegex = /^₱\d+(\.\d{1,2})?$/;
+    if (!price || !priceRegex.test(price)) {
+        return res.status(400).send('Product Price must be in the format "₱<number>", e.g., ₱500.00');
     }
 
     const newProduct = {
