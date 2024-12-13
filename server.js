@@ -51,7 +51,7 @@ app.use(session({
 // Middleware to check if the user is an admin
 const isAdmin = (req, res, next) => {
     if (!req.session.isAdmin) {
-        return res.status(403).send('Unauthorized');
+        return res.status(403).redirect('/login.html');  // Redirect to login page if not authenticated
     }
     next();
 };
@@ -231,12 +231,13 @@ app.get('/admin/orders', isAdmin, (req, res) => {
     res.json(orders); // Send the list of orders to the admin
 });
 
-// Home route (For checking that the server is up)
+// Home route (For checking that the server is running)
 app.get('/', (req, res) => {
-    res.send('Server is up and running!');
+    res.send('Server is running.');
 });
 
 // Start the server
 app.listen(port, () => {
-    console.log(Server is running on http://localhost:${port});
+    console.log(`Server running on port ${port}`);
 });
+
