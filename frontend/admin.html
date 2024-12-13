@@ -21,7 +21,7 @@
 
     <div id="admin-dashboard" style="display: none;">
         <h2>Product List</h2>
-        <ul id="product-list"></ul>
+        <div id="product-list" class="product-container"></div>
 
         <h2>Add New Product</h2>
         <form id="add-product-form" enctype="multipart/form-data">
@@ -64,9 +64,17 @@
                     const productList = document.getElementById('product-list');
                     productList.innerHTML = '';
                     products.forEach(product => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `${product.name} - ${product.price}`;
-                        productList.appendChild(li);
+                        const productCard = document.createElement('div');
+                        productCard.classList.add('product-card');
+                        productCard.innerHTML = `
+                            <img src="${product.image}" alt="${product.name}" class="product-img">
+                            <div class="product-details">
+                                <h3>${product.name}</h3>
+                                <p class="product-description">${product.description}</p>
+                                <p class="product-price">${product.price}</p>
+                            </div>
+                        `;
+                        productList.appendChild(productCard);
                     });
                 });
         }
