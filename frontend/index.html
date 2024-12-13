@@ -35,7 +35,10 @@
         fetch('/check-admin-session')  // Endpoint that checks admin session
             .then(response => response.json())
             .then(data => {
-                if (!data.isAdmin) {
+                if (data.isAdmin) {
+                    // Hide the admin login link if logged in
+                    document.getElementById('admin-link').style.display = 'none';
+                } else {
                     // Show the admin login link if not logged in
                     document.getElementById('admin-link').style.display = 'block';
                 }
@@ -43,7 +46,7 @@
             .catch(error => console.log('Error checking admin session:', error));
 
         // Fetch products from the backend
-        fetch('https://independent-renewal-production.up.railway.app/api/products')  // Use the correct API endpoint
+        fetch('/api/products')  // Use the correct API endpoint
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
@@ -87,7 +90,7 @@
             };
 
             // Send order data to the backend
-            fetch('https://your-backend-endpoint/api/orders', {
+            fetch('/api/orders', {  // Make sure your backend is set up to handle this
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
