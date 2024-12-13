@@ -288,3 +288,53 @@ input[type="tel"]:focus {
 .dashboard-card .card-actions button:hover {
     background-color: #0056b3;
 }
+
+/* Admin Product List */
+#product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-item .product-name {
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.product-item .product-price {
+    font-size: 1.3rem;
+    color: #007bff;
+}
+
+.product-item .product-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.product-item .product-actions button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.product-item .product-actions button:hover {
+    background-color: #0056b3;
+}
