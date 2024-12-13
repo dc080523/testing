@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const session = require('express-session');
-
+const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -24,6 +24,12 @@ let products = [
     }
 ];
 
+// Ensure the public/images directory exists
+const imagesDir = path.join(__dirname, 'public', 'images');
+if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+}
+
 // Static files (for images)
 app.use(express.static('public'));
 
@@ -31,11 +37,14 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Setting up session
+// Setting up session with secure cookie in production
 app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Set to true if in production (HTTPS)
+    }
 }));
 
 // Setup for file uploads using Multer
