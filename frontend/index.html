@@ -16,6 +16,20 @@
 
     <div id="product-container"></div>
 
+    <h2>Order Products</h2>
+    <form id="order-form">
+        <h3>Select Products</h3>
+        <div id="product-list"></div>
+
+        <h3>Shipping Information</h3>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="address" placeholder="Delivery Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+
+        <button type="submit">Place Order</button>
+    </form>
+
     <script>
         // Check if the user is logged in as admin
         fetch('/check-admin-session')  // Endpoint that checks admin session
@@ -33,7 +47,10 @@
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
+                const productList = document.getElementById('product-list');
+                
                 products.forEach(product => {
+                    // Display product info in the product container
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('product');
                     productDiv.innerHTML = `
@@ -43,9 +60,49 @@
                         <img src="${product.image}" alt="${product.name}" width="200">
                     `;
                     productContainer.appendChild(productDiv);
+
+                    // Add products to the order form list
+                    const orderProductDiv = document.createElement('div');
+                    orderProductDiv.classList.add('order-product');
+                    orderProductDiv.innerHTML = `
+                        <input type="checkbox" name="products" value="${product.id}" /> 
+                        ${product.name} - ${product.price}
+                    `;
+                    productList.appendChild(orderProductDiv);
                 });
             })
             .catch(error => console.log('Error fetching products:', error));
+
+        // Handle form submission for placing an order
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const orderData = {
+                products: formData.getAll('products'),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                address: formData.get('address'),
+                phone: formData.get('phone'),
+            };
+
+            // Send order data to the backend
+            fetch('https://your-backend-endpoint/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Order placed successfully!');
+                // Optionally redirect to a confirmation page or reset the form
+            })
+            .catch(error => {
+                alert('Failed to place order. Please try again.');
+            });
+        });
     </script>
 </body>
 </html>
