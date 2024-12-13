@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Page</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Assuming your style.css exists here -->
 </head>
 <body>
     <h1>Product List</h1>
 
-    <!-- Admin Login Link -->
-    <div id="admin-link">
+    <!-- Admin Login Link (conditionally shown) -->
+    <div id="admin-link" style="display: none;">
         <a href="/admin.html"><button>Admin Login</button></a>
     </div>
 
     <div id="product-container"></div>
 
     <script>
+        // Check if the user is logged in as admin
+        fetch('/check-admin-session')  // Endpoint that checks admin session
+            .then(response => response.json())
+            .then(data => {
+                if (!data.isAdmin) {
+                    // Show the admin login link if not logged in
+                    document.getElementById('admin-link').style.display = 'block';
+                }
+            })
+            .catch(error => console.log('Error checking admin session:', error));
+
         // Fetch products from the backend
-        fetch('https://independent-renewal-production.up.railway.app/api/products')  // Replace with your correct API endpoint
+        fetch('https://independent-renewal-production.up.railway.app/api/products')  // Use the correct API endpoint
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
