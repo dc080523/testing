@@ -59,22 +59,29 @@
                     document.getElementById('admin-dashboard').style.display = 'block';
 
                     // Fetch and display product list
-                    fetch('/admin/products')
-                        .then(response => response.json())
-                        .then(products => {
-                            const productList = document.getElementById('product-list');
-                            products.forEach(product => {
-                                const li = document.createElement('li');
-                                li.innerHTML = `${product.name} - ${product.price}`;
-                                productList.appendChild(li);
-                            });
-                        });
+                    fetchProducts();
                 } else {
                     // Show error message for invalid login
                     document.getElementById('login-error').style.display = 'block';
                 }
             });
         });
+
+        // Fetch and display the product list
+        function fetchProducts() {
+            fetch('/admin/products')
+                .then(response => response.json())
+                .then(products => {
+                    const productList = document.getElementById('product-list');
+                    productList.innerHTML = ''; // Clear current list
+
+                    products.forEach(product => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `${product.name} - ${product.price}`;
+                        productList.appendChild(li);
+                    });
+                });
+        }
 
         // Handle form submission to add a new product
         document.getElementById('add-product-form').addEventListener('submit', function(e) {
@@ -89,8 +96,8 @@
             .then(response => {
                 if (response.ok) {
                     alert('Product added successfully');
-                    // Optionally, reload the product list after adding a new product
-                    location.reload();
+                    // Fetch and display the updated product list immediately
+                    fetchProducts();
                 } else {
                     alert('Failed to add product');
                 }
