@@ -3,7 +3,6 @@ const multer = require('multer');
 const path = require('path');
 const session = require('express-session');
 const fs = require('fs');
-const cors = require('cors'); // Add CORS for cross-origin requests
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -41,9 +40,6 @@ app.use(express.static('public'));
 // Middleware to parse JSON and form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Enable CORS
-app.use(cors()); // This will handle cross-origin requests
 
 // Setting up session
 app.use(session({
@@ -94,14 +90,10 @@ app.use(express.static('frontend'));
 // Admin Login Route
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    console.log('Login attempt:', { username, password }); // Add this log for debugging
-
     if (username === adminCredentials.username && password === adminCredentials.password) {
         req.session.isAdmin = true;
-        console.log('Admin logged in'); // Log when the admin logs in
         res.json({ success: true });
     } else {
-        console.log('Invalid credentials'); // Log when credentials are invalid
         res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 });
@@ -160,7 +152,6 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
 
 // Admin Product List Route (only accessible after login)
 app.get('/admin/products', isAdmin, (req, res) => {
-    console.log('Admin products accessed'); // Log when this route is accessed
     res.json(products);  // Send the list of products to the admin
 });
 
@@ -247,5 +238,5 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(Server is running on http://localhost:${port});
 });
