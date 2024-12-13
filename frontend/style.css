@@ -143,34 +143,6 @@ input[type="tel"]:focus {
     margin-top: 20px;
 }
 
-/* Admin Login Styles */
-#admin-login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Ensure this takes the full viewport height */
-    background-color: #f1f1f1;
-}
-
-#admin-login-form {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    margin: auto;
-}
-
-#admin-login-form h2 {
-    margin-bottom: 25px;
-    font-size: 2rem;
-    color: #333;
-    text-align: center; /* Ensures header is centered */
-    width: 100%; /* Ensures header takes full width */
-}
-
 /* Admin Dashboard Styles */
 #dashboard-container {
     display: flex;
@@ -264,7 +236,7 @@ input[type="tel"]:focus {
     h1, h2 {
         font-size: 2rem;
     }
-    #admin-login-form h2, #dashboard-container h3 {
+    #dashboard-container h3 {
         font-size: 1.5rem;
     }
 }
