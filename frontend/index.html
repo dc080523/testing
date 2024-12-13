@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Page</title>
-    <link rel="stylesheet" href="style.css"> <!-- Assuming your style.css exists here -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Product List</h1>
 
-    <!-- Admin Login Link (conditionally shown) -->
     <div id="admin-link" style="display: none;">
         <a href="/admin.html"><button>Admin Login</button></a>
     </div>
@@ -31,29 +30,24 @@
     </form>
 
     <script>
-        // Check if the user is logged in as admin
-        fetch('/check-admin-session')  // Endpoint that checks admin session
+        fetch('/check-admin-session')
             .then(response => response.json())
             .then(data => {
                 if (data.isAdmin) {
-                    // Hide the admin login link if logged in
                     document.getElementById('admin-link').style.display = 'none';
                 } else {
-                    // Show the admin login link if not logged in
                     document.getElementById('admin-link').style.display = 'block';
                 }
             })
             .catch(error => console.log('Error checking admin session:', error));
 
-        // Fetch products from the backend
-        fetch('/api/products')  // Use the correct API endpoint
+        fetch('/api/products')
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
                 const productList = document.getElementById('product-list');
                 
                 products.forEach(product => {
-                    // Display product info in the product container
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('product');
                     productDiv.innerHTML = `
@@ -64,7 +58,6 @@
                     `;
                     productContainer.appendChild(productDiv);
 
-                    // Add products to the order form list
                     const orderProductDiv = document.createElement('div');
                     orderProductDiv.classList.add('order-product');
                     orderProductDiv.innerHTML = `
@@ -76,7 +69,6 @@
             })
             .catch(error => console.log('Error fetching products:', error));
 
-        // Handle form submission for placing an order
         document.getElementById('order-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -89,18 +81,14 @@
                 phone: formData.get('phone'),
             };
 
-            // Send order data to the backend
-            fetch('/api/orders', {  // Make sure your backend is set up to handle this
+            fetch('/api/orders', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData),
             })
             .then(response => response.json())
             .then(data => {
                 alert('Order placed successfully!');
-                // Optionally redirect to a confirmation page or reset the form
             })
             .catch(error => {
                 alert('Failed to place order. Please try again.');
