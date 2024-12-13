@@ -5,7 +5,7 @@ window.onload = async () => {
         const response = await fetch('https://independent-renewal-production.up.railway.app/api/products');
         const products = await response.json();
         
-        console.log(products);  // Debugging the products data
+        console.log(products);  // Debug Produc data
         
         products.forEach(product => {
             const productDiv = document.createElement('div');
