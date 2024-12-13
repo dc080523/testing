@@ -41,29 +41,29 @@
             })
             .catch(error => console.log('Error checking admin session:', error));
 
-        fetch('/api/products')
+        fetch('/api/products') // Ensure this endpoint is correct
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
                 const productList = document.getElementById('product-list');
-                
+
                 products.forEach(product => {
                     const productDiv = document.createElement('div');
                     productDiv.classList.add('product');
-                    productDiv.innerHTML = 
+                    productDiv.innerHTML = `
                         <h3>${product.name}</h3>
                         <p>${product.description}</p>
                         <p>${product.price}</p>
                         <img src="${product.image}" alt="${product.name}" width="200">
-                    ;
+                    `;
                     productContainer.appendChild(productDiv);
 
                     const orderProductDiv = document.createElement('div');
                     orderProductDiv.classList.add('order-product');
-                    orderProductDiv.innerHTML = 
+                    orderProductDiv.innerHTML = `
                         <input type="checkbox" name="products" value="${product.id}" /> 
                         ${product.name} - ${product.price}
-                    ;
+                    `;
                     productList.appendChild(orderProductDiv);
                 });
             })
