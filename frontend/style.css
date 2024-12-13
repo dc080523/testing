@@ -160,59 +160,38 @@ input[type="tel"]:focus {
     width: 100%;
     max-width: 400px;
     text-align: center;
-    margin: auto; /* Ensures horizontal centering */
+    margin: auto;
 }
 
 #admin-login-form h2 {
     margin-bottom: 25px;
     font-size: 2rem;
     color: #333;
+    text-align: center; /* Ensure header is centered */
 }
 
-#admin-login-form input[type="text"],
-#admin-login-form input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    max-width: 100%; /* Ensures inputs span the full width */
-    box-sizing: border-box; /* Makes inputs fill their container properly */
+/* Admin Dashboard Styles */
+#dashboard-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-#admin-login-form input[type="text"]:focus,
-#admin-login-form input[type="password"]:focus {
-    border-color: #FDB94A; /* Focus color for consistency */
-    outline: none;
+#dashboard-container h3 {
+    font-size: 2rem; /* Increase size of header for better visibility */
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center; /* Ensure header is centered */
 }
 
-#admin-login-form button {
-    padding: 14px 30px;
-    font-size: 1.2rem;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-#admin-login-form button:hover {
-    background-color: #218838;
-}
-
-#admin-login-form p {
-    margin-top: 20px;
-    font-size: 1rem;
-    color: #555;
-}
-
-/* Admin Link Button Styles */
+/* Admin Login Button Styles */
 #admin-link {
     text-align: center;
-    margin-top: 20px;
+    margin: 30px 0;
 }
 
 #admin-link button {
@@ -230,23 +209,7 @@ input[type="tel"]:focus {
     background-color: #218838;
 }
 
-/* Admin Dashboard Styles */
-#dashboard-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-#dashboard-container h3 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 25px;
-}
-
+/* Dashboard Card Styles */
 .dashboard-card {
     display: flex;
     justify-content: space-between;
