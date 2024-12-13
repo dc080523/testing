@@ -31,6 +31,9 @@ let products = [
     }
 ];
 
+// In-memory orders data (for demo purposes)
+let orders = [];
+
 // Static files (for images)
 app.use(express.static('public'));
 
@@ -167,6 +170,41 @@ app.get('/api/products', (req, res) => {
 // Admin session check route (checks if user is logged in as admin)
 app.get('/check-admin-session', (req, res) => {
     res.json({ isAdmin: req.session.isAdmin || false });
+});
+
+// API to handle placing an order
+app.post('/api/orders', (req, res) => {
+    const { products: orderedProducts, name, email, address, phone } = req.body;
+
+    // Basic validation for the order data
+    if (!orderedProducts || orderedProducts.length === 0) {
+        return res.status(400).json({ message: 'At least one product must be selected.' });
+    }
+    if (!name || !email || !address || !phone) {
+        return res.status(400).json({ message: 'All shipping information must be provided.' });
+    }
+
+    // Create the order object
+    const newOrder = {
+        id: orders.length + 1, // Simple ID generation
+        products: orderedProducts, // List of product IDs
+        name,
+        email,
+        address,
+        phone,
+        status: 'Pending', // Default status
+    };
+
+    // Save the order to the orders array
+    orders.push(newOrder);
+
+    // Send a success response
+    res.json({ message: 'Order placed successfully!', order: newOrder });
+});
+
+// Optional: Add a route to get the list of orders (for admin purposes)
+app.get('/admin/orders', isAdmin, (req, res) => {
+    res.json(orders); // Send the list of orders to the admin
 });
 
 // Home route (For checking that the server is up)
