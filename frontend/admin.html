@@ -102,13 +102,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        #add-product-form label {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 8px;
-            display: block;
-        }
-
         #add-product-form input,
         #add-product-form textarea,
         #add-product-form button {
@@ -179,21 +172,11 @@
 
         <h2>Add New Product</h2>
         <form id="add-product-form" enctype="multipart/form-data">
-            <label for="id">Product ID</label>
-            <input type="text" name="id" id="id" placeholder="Product ID" maxlength="20" required>
-
-            <label for="name">Product Name</label>
-            <input type="text" name="name" id="name" placeholder="Product Name" maxlength="20" required>
-
-            <label for="description">Description</label>
-            <textarea name="description" id="description" placeholder="Description" required oninput="removeNewLines(this)"></textarea>
-
-            <label for="price">Price</label>
-            <input type="text" name="price" id="price" placeholder="Price" required>
-
-            <label for="image">Product Image</label>
-            <input type="file" name="image" id="image" required>
-
+            <input type="text" name="id" placeholder="Product ID" required>
+            <input type="text" name="name" placeholder="Product Name" maxlength="20" required>
+            <textarea name="description" placeholder="Description" required></textarea>
+            <input type="text" name="price" placeholder="Price" required>
+            <input type="file" name="image" required>
             <button type="submit">Add Product</button>
         </form>
 
@@ -294,12 +277,16 @@
         });
 
         document.getElementById('back-to-products-btn').addEventListener('click', function() {
-            window.location.reload(); // Reload the page to show the product list
+            window.location.href = '/index.html'; // Redirect to the products page
         });
 
-        function removeNewLines(textarea) {
-            textarea.value = textarea.value.replace(/\n/g, ' ');
-        }
+        // Prevent typing beyond the 20-character limit in the product name input
+        document.getElementById('add-product-form').querySelector('input[name="name"]').addEventListener('input', function(e) {
+            const maxLength = 20;
+            if (this.value.length >= maxLength) {
+                this.value = this.value.slice(0, maxLength); // Prevents typing beyond 20 characters
+            }
+        });
     </script>
 </body>
 </html>
