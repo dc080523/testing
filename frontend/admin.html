@@ -1,74 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- admin.html -->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Product List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .product-card {
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .product-card h3 {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #333;
-        }
-        .product-card p {
-            color: #666;
-            font-size: 14px;
-        }
-        .product-card .price {
-            font-weight: bold;
-            color: #27ae60;
-        }
-    </style>
+    <title>Admin Dashboard</title>
 </head>
 <body>
-    <h1>PRODUCTS LIST</h1>
-    <div class="product-list" id="product-list">
-        <!-- Product cards will be rendered here -->
-    </div>
+    <h1>Admin Dashboard</h1>
+    <h2>Product List</h2>
+    <ul id="product-list">
+        <!-- Product list will be populated here -->
+    </ul>
+    <h2>Add New Product</h2>
+    <form id="add-product-form" enctype="multipart/form-data">
+        <input type="text" name="id" placeholder="Product ID" required>
+        <input type="text" name="name" placeholder="Product Name" required>
+        <textarea name="description" placeholder="Description" required></textarea>
+        <input type="text" name="price" placeholder="Price" required>
+        <input type="file" name="image" required>
+        <button type="submit">Add Product</button>
+    </form>
 
     <script>
-        // Fetch products from the API
-        fetch('/api/products')
+        // Fetch products and display them
+        fetch('/admin/products')
             .then(response => response.json())
-            .then(data => {
+            .then(products => {
                 const productList = document.getElementById('product-list');
-                data.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.classList.add('product-card');
-                    productCard.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <p class="price">${product.price}</p>
-                    `;
-                    productList.appendChild(productCard);
+                products.forEach(product => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `${product.name} - ${product.price}`;
+                    productList.appendChild(li);
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching product data:', error);
             });
+
+        // Handle form submission to add a new product
+        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('/add-product', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Product added successfully');
+                } else {
+                    alert('Failed to add product');
+                }
+            });
+        });
     </script>
 </body>
 </html>
