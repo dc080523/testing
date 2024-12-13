@@ -14,7 +14,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Make elements stack vertically */
+            flex-direction: column;
             height: 100vh;
         }
 
@@ -120,6 +120,21 @@
         #add-product-form button:hover {
             background-color: #45a049;
         }
+
+        #back-to-products-btn {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #back-to-products-btn:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 <body>
@@ -148,6 +163,8 @@
             <input type="file" name="image" required>
             <button type="submit">Add Product</button>
         </form>
+
+        <button id="back-to-products-btn">Back to Products Page</button>
     </div>
 
     <script>
@@ -204,6 +221,11 @@
                     alert('Failed to add product');
                 }
             });
+        });
+
+        document.getElementById('back-to-products-btn').addEventListener('click', function() {
+            document.getElementById('admin-login-container').style.display = 'block';
+            document.getElementById('admin-dashboard').style.display = 'none';
         });
     </script>
 </body>
