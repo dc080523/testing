@@ -46,7 +46,6 @@ app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }  // Make sure this is false for development, true if using HTTPS
 }));
 
 // Middleware to check if the user is an admin
