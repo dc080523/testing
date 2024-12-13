@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Page</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
 </head>
 <body>
     <h1>Product List</h1>
@@ -30,6 +30,7 @@
     </form>
 
     <script>
+        // Check if the user is an admin
         fetch('/check-admin-session')
             .then(response => response.json())
             .then(data => {
@@ -41,6 +42,7 @@
             })
             .catch(error => console.log('Error checking admin session:', error));
 
+        // Fetch and display the product list
         fetch('/api/products')
             .then(response => response.json())
             .then(products => {
@@ -69,6 +71,7 @@
             })
             .catch(error => console.log('Error fetching products:', error));
 
+        // Handle form submission for placing an order
         document.getElementById('order-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
