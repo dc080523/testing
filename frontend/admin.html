@@ -180,7 +180,7 @@
         <h2>Add New Product</h2>
         <form id="add-product-form" enctype="multipart/form-data">
             <label for="id">Product ID</label>
-            <input type="text" name="id" id="id" placeholder="Product ID" maxlength="20" required>
+            <input type="text" name="id" id="id" placeholder="Product ID" required>
 
             <label for="name">Product Name</label>
             <input type="text" name="name" id="name" placeholder="Product Name" maxlength="20" required>
@@ -290,15 +290,16 @@
                 } else {
                     alert('Failed to add product');
                 }
-            });
+            })
+            .catch(error => console.log('Error adding product:', error));
         });
 
         document.getElementById('back-to-products-btn').addEventListener('click', function() {
-            window.location.reload(); // Reload the page to show the product list
+            window.location.href = '/admin/products';
         });
 
-        function removeNewLines(textarea) {
-            textarea.value = textarea.value.replace(/\n/g, ' ');
+        function removeNewLines(inputField) {
+            inputField.value = inputField.value.replace(/\n/g, ''); // Removes all newline characters
         }
     </script>
 </body>
