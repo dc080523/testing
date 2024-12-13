@@ -12,7 +12,7 @@
 
     <script>
         // Fetch products from the backend
-        fetch('https://your-railway-app-link/api/products')
+        fetch('https://independent-renewal-production.up.railway.app/api/products')  // Replace with your correct API endpoint
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
@@ -28,7 +28,7 @@
                     productContainer.appendChild(productDiv);
                 });
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log('Error fetching products:', error));
     </script>
 </body>
 </html>
