@@ -69,11 +69,11 @@
 
         // Fetch and display the product list
         function fetchProducts() {
-            fetch('/admin/products')
+            fetch('/admin/products')  // Admin-only route
                 .then(response => response.json())
                 .then(products => {
                     const productList = document.getElementById('product-list');
-                    productList.innerHTML = ''; // Clear current list
+                    productList.innerHTML = '';  // Clear current list
 
                     products.forEach(product => {
                         const li = document.createElement('li');
