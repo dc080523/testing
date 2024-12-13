@@ -182,7 +182,7 @@
         <h2>Add New Product</h2>
         <form id="add-product-form" enctype="multipart/form-data">
             <label for="id">Product ID</label>
-            <input type="text" name="id" id="id" placeholder="Product ID" required maxlength="20" oninput="restrictIdLength(this)">
+            <input type="text" name="id" id="id" placeholder="Product ID" required>
 
             <label for="name">Product Name</label>
             <input type="text" name="name" id="name" placeholder="Product Name" maxlength="20" required>
@@ -230,14 +230,17 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
+            console.log('Attempting login with', username, password);
+
             fetch('/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             })
             .then(response => {
+                console.log('Response status:', response.status);
                 if (response.ok) {
-                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('loggedIn', 'true'); // Store the login status
                     document.getElementById('admin-login-container').style.display = 'none';
                     document.getElementById('admin-dashboard').style.display = 'block';
                     fetchProducts();
@@ -245,7 +248,9 @@
                     document.getElementById('login-error').style.display = 'block';
                 }
             })
-            .catch(error => console.error('Error during login:', error));
+            .catch(error => {
+                console.log('Error during login:', error);
+            });
         });
 
         function fetchProducts() {
@@ -253,7 +258,7 @@
                 .then(response => response.json())
                 .then(products => {
                     const productList = document.getElementById('product-list');
-                    productList.innerHTML = '';
+                    productList.innerHTML = ''; // Clear the list first
                     products.forEach(product => {
                         const li = document.createElement('li');
                         li.innerHTML = ${product.name} - ${product.price} 
@@ -261,6 +266,7 @@
                         productList.appendChild(li);
                     });
 
+                    // Add event listeners to the delete buttons
                     document.querySelectorAll('.delete-btn').forEach(button => {
                         button.addEventListener('click', function() {
                             const productId = this.getAttribute('data-id');
@@ -277,57 +283,25 @@
             })
             .then(response => {
                 if (response.ok) {
-                    fetchProducts();
+                    alert('Product deleted successfully');
+                    fetchProducts(); // Reload the product list
                 } else {
-                    console.error('Error deleting product');
+                    alert('Failed to delete product');
                 }
             })
             .catch(error => console.error('Error deleting product:', error));
         }
 
-        document.getElementById('add-product-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const id = document.getElementById('id').value;
-            const name = document.getElementById('name').value;
-            const description = document.getElementById('description').value;
-            const price = document.getElementById('price').value;
-            const image = document.getElementById('image').files[0];
-
-            const formData = new FormData();
-            formData.append('id', id);
-            formData.append('name', name);
-            formData.append('description', description);
-            formData.append('price', price);
-            formData.append('image', image);
-
-            fetch('/admin/products', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(product => {
-                fetchProducts();
-                document.getElementById('add-product-form').reset();
-            })
-            .catch(error => console.error('Error adding product:', error));
-        });
-
         document.getElementById('back-to-products-btn').addEventListener('click', function() {
-            window.location.href = '/';
+            window.location.href = '/'; // Redirect to product page
         });
 
         document.getElementById('back-to-dashboard-btn').addEventListener('click', function() {
-            document.getElementById('admin-login-container').style.display = 'block';
-            document.getElementById('admin-dashboard').style.display = 'none';
+            window.location.href = '/admin'; // Go to admin dashboard page
         });
 
-        function restrictIdLength(input) {
-            input.value = input.value.slice(0, 20);
-        }
-
         function removeNewLines(textarea) {
-            textarea.value = textarea.value.replace(/\n/g, '');
+            textarea.value = textarea.value.replace(/\n/g, ' ');
         }
     </script>
 </body>
