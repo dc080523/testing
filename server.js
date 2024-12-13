@@ -155,6 +155,30 @@ app.get('/admin/products', isAdmin, (req, res) => {
     res.json(products);  // Send the list of products to the admin
 });
 
+// Admin Delete Product Route (only accessible after login)
+app.delete('/admin/products/:id', isAdmin, (req, res) => {
+    const { id } = req.params;
+
+    // Find the index of the product to delete
+    const productIndex = products.findIndex(product => product.id === id);
+    
+    // If product not found, return an error
+    if (productIndex === -1) {
+        return res.status(404).json({ message: 'Product not found.' });
+    }
+
+    // Delete the product from the array
+    const deletedProduct = products.splice(productIndex, 1);
+
+    // Optionally, delete the image file from the filesystem if necessary
+    const imagePath = './public' + deletedProduct[0].image;
+    if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);  // Delete the image file
+    }
+
+    res.json({ success: true, message: 'Product deleted successfully', product: deletedProduct[0] });
+});
+
 // Admin logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
@@ -214,5 +238,4 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+    console.log(`Server is running on http://localhost:${po
