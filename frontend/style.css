@@ -54,7 +54,7 @@ h1, h2 {
 .product .price {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #007bff;
+    color: #FDB94A; /* Yellowish tone to match your preference */
     margin-bottom: 20px;
 }
 
@@ -113,7 +113,7 @@ input[type="tel"] {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus {
-    border-color: #007bff;
+    border-color: #FDB94A; /* Focus color adjusted */
     outline: none;
 }
 
@@ -121,7 +121,7 @@ input[type="tel"]:focus {
 #order-form button {
     padding: 14px 30px;
     font-size: 1.3rem;
-    background-color: #007bff;
+    background-color: #FDB94A; /* Yellowish color for consistency */
     color: white;
     border: none;
     cursor: pointer;
@@ -131,7 +131,7 @@ input[type="tel"]:focus {
 }
 
 #order-form button:hover {
-    background-color: #0056b3;
+    background-color: #f0a30d; /* Darker yellowish tone */
 }
 
 /* Error Message Styles */
@@ -182,7 +182,7 @@ input[type="tel"]:focus {
 
 #admin-login-form input[type="text"]:focus,
 #admin-login-form input[type="password"]:focus {
-    border-color: #007bff;
+    border-color: #FDB94A; /* Focus color for consistency */
     outline: none;
 }
 
@@ -268,7 +268,7 @@ input[type="tel"]:focus {
 
 .dashboard-card .card-data {
     font-size: 1.3rem;
-    color: #007bff;
+    color: #FDB94A; /* Consistent color for data */
 }
 
 .dashboard-card .card-actions {
