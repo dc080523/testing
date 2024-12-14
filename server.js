@@ -31,12 +31,10 @@ let products = [
     }
 ];
 
-
 let orders = [];
 
 // Static Image files
 app.use(express.static('public'));
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +46,16 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+// Log out on each refresh by destroying the session
+app.use((req, res, next) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return next(err);
+        }
+        next();
+    });
+});
+
 // Check if admin
 const isAdmin = (req, res, next) => {
     if (!req.session.isAdmin) {
@@ -56,7 +64,7 @@ const isAdmin = (req, res, next) => {
     next();
 };
 
-// Setup  file uploads using Multer
+// Setup file uploads using Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/images');
@@ -152,25 +160,21 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
 
 // Admin Product List Route (only viewable after login)
 app.get('/admin/products', isAdmin, (req, res) => {
-    res.json(products);  // Send the list of products to admind
+    res.json(products);  // Send the list of products to admin
 });
 
 
 app.delete('/admin/products/:id', isAdmin, (req, res) => {
     const { id } = req.params;
 
-    
     const productIndex = products.findIndex(product => product.id === id);
-    
     
     if (productIndex === -1) {
         return res.status(404).json({ message: 'Product not found.' });
     }
 
-    
     const deletedProduct = products.splice(productIndex, 1);
 
-    
     const imagePath = './public' + deletedProduct[0].image;
     if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);  // Delete the image file
