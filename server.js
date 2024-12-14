@@ -7,7 +7,7 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Verify that the 'public/images' directory exists
+
 const imagesDir = './public/images';
 if (!fs.existsSync(imagesDir)) {
     fs.mkdirSync(imagesDir, { recursive: true });
@@ -98,7 +98,7 @@ app.post('/login', (req, res) => {
     }
 });
 
-// Admin Add Product (accessible only when logged in)
+// Admin Add Product 
 app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
     if (req.fileValidationError) {
         return res.status(400).send(req.fileValidationError);
@@ -146,11 +146,11 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
         image: '/images/' + req.file.filename,
     };
 
-    products.unshift(newProduct);  // Adds to the top of the list
+    products.unshift(newProduct);  // Adds to  top of the list
     res.json({ success: true, product: newProduct });
 });
 
-// Admin Product List Route (only viewable after login)
+// Admin Product List Route 
 app.get('/admin/products', isAdmin, (req, res) => {
     res.json(products);  // Send the list of products to admind
 });
@@ -173,7 +173,7 @@ app.delete('/admin/products/:id', isAdmin, (req, res) => {
     
     const imagePath = './public' + deletedProduct[0].image;
     if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);  // Delete the image file
+        fs.unlinkSync(imagePath);  // Delete the image 
     }
 
     res.json({ success: true, message: 'Product deleted successfully', product: deletedProduct[0] });
@@ -210,13 +210,13 @@ app.post('/api/orders', (req, res) => {
 
     // Create the order object
     const newOrder = {
-        id: orders.length + 1, // ID generation
+        id: orders.length + 1, 
         products: orderedProducts, // List of product IDs
         name,
         email,
         address,
         phone,
-        status: 'Pending', // Default status
+        status: 'Pending', 
     };
 
     // Save the order to the array
@@ -228,10 +228,10 @@ app.post('/api/orders', (req, res) => {
 
 
 app.get('/admin/orders', isAdmin, (req, res) => {
-    res.json(orders); // Send the list of orders to the admin
+    res.json(orders); 
 });
 
-// Home  For checking that the server is up
+
 app.get('/', (req, res) => {
     res.send('Server is up and running!');
 });
