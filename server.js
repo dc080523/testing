@@ -41,16 +41,11 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Set up session with the session cookie to expire when the browser is closed
+// Set up session
 app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        // Session will expire when the browser is closed
-        expires: false,
-        maxAge: null
-    }
 }));
 
 // Check if admin
@@ -61,7 +56,7 @@ const isAdmin = (req, res, next) => {
     next();
 };
 
-// Setup file uploads using Multer
+// Setup  file uploads using Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/images');
@@ -157,21 +152,25 @@ app.post('/add-product', isAdmin, upload.single('image'), (req, res) => {
 
 // Admin Product List Route (only viewable after login)
 app.get('/admin/products', isAdmin, (req, res) => {
-    res.json(products);  // Send the list of products to admin
+    res.json(products);  // Send the list of products to admind
 });
 
 
 app.delete('/admin/products/:id', isAdmin, (req, res) => {
     const { id } = req.params;
 
+    
     const productIndex = products.findIndex(product => product.id === id);
-
+    
+    
     if (productIndex === -1) {
         return res.status(404).json({ message: 'Product not found.' });
     }
 
+    
     const deletedProduct = products.splice(productIndex, 1);
 
+    
     const imagePath = './public' + deletedProduct[0].image;
     if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);  // Delete the image file
@@ -220,7 +219,7 @@ app.post('/api/orders', (req, res) => {
         status: 'Pending', // Default status
     };
 
-    // Save the order to the orders array
+    // Save the order to the array
     orders.push(newOrder);
 
     // Send a success
@@ -232,7 +231,7 @@ app.get('/admin/orders', isAdmin, (req, res) => {
     res.json(orders); // Send the list of orders to the admin
 });
 
-// Home For checking that the server is up
+// Home  For checking that the server is up
 app.get('/', (req, res) => {
     res.send('Server is up and running!');
 });
